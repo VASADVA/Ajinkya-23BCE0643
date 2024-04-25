@@ -1,79 +1,179 @@
 #include <iostream>
-#include <stdlib.h>
-#include <conio.h>
-#include <time.h>
+#include <ctime>
 
 using namespace std;
 
-void SimonSays() {
-    int right = 0;
-    int Disp[5];
-    int input, j, cnt = 0;
-    char playAgain;
+class welcome
+{
+public:
+    void display_time()
+    {
+        cout << "Welcome to the bookstore" << endl;
+        time_t currentTime = time(nullptr);
+        tm *localTime = localtime(&currentTime);
+        cout << "Current time: "
+             << localTime->tm_hour << ":"
+             << localTime->tm_min << ":"
+             << localTime->tm_sec << endl;
+    };
+};
 
-    do {
-        srand(time(0));
-        for (int i = 0; i < 5; i++) {
-            int N = 10;
-            Disp[i] = rand() % N;
-        }
+class bookstore
+{
+public:
+    int sum = 0;
 
-        for (int i = 0; i < 5; i++) {
-            for (j = 0; j <= i; j++) {
-                for (int k = 0; k <= i; k++) {
-                    cout << Disp[k];
-                }
-                cout << "" << endl;
-                int a;
-                cout << "enter any number to proceed:";
-                cin >> a;
-                system("cls");
-                cout << "type the number just displayed" << endl;
-                cin >> input;
-                system("cls");
-                cout << "" << endl;
-                if (input == Disp[j])
-                    cout << "Equal! you may proceed to the next round." << endl;
-                else if (input == Disp[j + 1] + 10 * Disp[j])
-                    cout << "Equal! you may proceed to the next round." << endl;
-                else if (input == Disp[j + 2] + 10 * Disp[j + 1] + 100 * Disp[j])
-                    cout << "Equal! you may proceed to the next round." << endl;
-                else if (input == Disp[j + 3] + 10 * Disp[j + 2] + 100 * Disp[j + 1] + 1000 * Disp[j])
-                    cout << "Equal! you may proceed to the next round." << endl;
-                else if (input == Disp[j + 4] + 10 * Disp[j + 3] + 100 * Disp[j + 2] + 1000 * Disp[j + 1] + 10000 * Disp[j])
-                    cout << "Congratulations ! You win" << endl;
-                else if (input != Disp[j]) {
-                    cout << "Not Equal! you fail this round" << endl;
-                    cnt += 1;
-                }
-                else if (input == Disp[j + 1] + 10 * Disp[j]) {
-                    cout << "Not Equal! you fail this round" << endl;
-                    cnt += 1;
-                }
-                else if (input == Disp[j + 2] + 10 * Disp[j + 1] + 100 * Disp[j]) {
-                    cout << "Not Equal! you fail this round" << endl;
-                    cnt += 1;
-                }
-                else if (input == Disp[j + 3] + 10 * Disp[j + 2] + 100 * Disp[j + 1] + 1000 * Disp[j]) {
-                    cout << "Not Equal! you fail this round" << endl;
-                    cnt += 1;
-                }
+    void bill()
+    {
+        cout << "Your total bill is: " << sum << " Rs." << endl;
+    }
+
+    void genres()
+    {
+        cout << "--------------GENRES--------------" << endl;
+        cout << "1. Fiction" << endl;
+        cout << "2. Self-Help" << endl;
+        cout << "3. Money-making" << endl;
+        cout << "4. Children's books" << endl;
+    }
+
+    void price(int price)
+    {
+        cout << "The price of the book is: " << price << " Rs." << endl;
+        sum += price; // Adding book price to the total bill
+    }
+
+    void Fiction()
+    {
+        cout << "--------------FICTION BOOKS--------------" << endl;
+        cout << "1. Harry Potter and the Philosopher's Stone - Rs. 550" << endl;
+        cout << "2. Maze Runner - Rs. 600" << endl;
+        cout << "3. Divergent - Rs. 500" << endl;
+        cout << "4. Frankenstein - Rs. 700" << endl;
+    }
+
+    void SelfHelp()
+    {
+        cout << "--------------SELF-HELP BOOKS--------------" << endl;
+        cout << "1. Atomic Habits - Rs. 600" << endl;
+        cout << "2. Feel-good Productivity - Rs. 650" << endl;
+        cout << "3. 4000 Weeks - Rs. 450" << endl;
+        cout << "4. Deep Work - Rs. 700" << endl;
+    }
+
+    void MoneyMaking()
+    {
+        cout << "--------------MONEY-MAKING BOOKS--------------" << endl;
+        cout << "1. The Entrepreneur Revolution - Rs. 500" << endl;
+        cout << "2. Millionaire Fastlane - Rs. 550" << endl;
+        cout << "3. Crush It! - Rs. 600" << endl;
+        cout << "4. Key Person of Influence - Rs. 650" << endl;
+    }
+
+    void ChildrenBooks()
+    {
+        cout << "--------------CHILDREN'S BOOKS--------------" << endl;
+        cout << "1. Mary had a Little Lamb - Rs. 450" << endl;
+        cout << "2. Peppa Pig - Rs. 500" << endl;
+        cout << "3. Thomas Engine - Rs. 550" << endl;
+        cout << "4. Bob the Builder - Rs. 600" << endl;
+    }
+
+    void ask()
+    {
+        char choice;
+        do
+        {
+            string genre;
+            cout << "Enter the number of the genre you'd like to explore: ";
+            cin >> genre;
+
+            if (genre == "1")
+            {
+                Fiction();
+                int book;
+                cout << "Enter the number of the book you'd like to buy: ";
+                cin >> book;
+                if (book == 1)
+                    price(550);
+                else if (book == 2)
+                    price(600);
+                else if (book == 3)
+                    price(500);
+                else if (book == 4)
+                    price(700);
                 else
-                    cout << "Not Equal! you fail this round" << endl;
-                break;
-                cnt += 1;
+                    cout << "Invalid book selection." << endl;
             }
-            cout << "" << endl;
-            if (cnt >= 1)
-                break;
-        }
+            else if (genre == "2")
+            {
+                SelfHelp();
+                int book;
+                cout << "Enter the number of the book you'd like to buy: ";
+                cin >> book;
+                if (book == 1)
+                    price(550);
+                else if (book == 2)
+                    price(600);
+                else if (book == 3)
+                    price(500);
+                else if (book == 4)
+                    price(700);
+                else
+                    cout << "Invalid book selection." << endl;
+            }
+            else if (genre == "3")
+            {
+                MoneyMaking();
+                int book;
+                cout << "Enter the number of the book you'd like to buy: ";
+                cin >> book;
+                if (book == 1)
+                    price(550);
+                else if (book == 2)
+                    price(600);
+                else if (book == 3)
+                    price(500);
+                else if (book == 4)
+                    price(700);
+                else
+                    cout << "Invalid book selection." << endl;
+            }
+            else if (genre == "4")
+            {
+                ChildrenBooks();
+                int book;
+                cout << "Enter the number of the book you'd like to buy: ";
+                cin >> book;
+                if (book == 1)
+                    price(550);
+                else if (book == 2)
+                    price(600);
+                else if (book == 3)
+                    price(500);
+                else if (book == 4)
+                    price(700);
+                else
+                    cout << "Invalid book selection." << endl;
+            }
+            else
+            {
+                cout << "Invalid genre selection." << endl;
+            }
 
-        cout << "Do you want to play again? (y/n): ";
-        cin >> playAgain;
-    } while (playAgain == 'y' || playAgain == 'Y');
-}
+            cout << "Do you want to buy another book? (y/n): ";
+            cin >> choice;
+        } while (choice == 'y' || choice == 'Y');
+    }
+};
 
-int main() {
-    SimonSays();
-    return 0;
+int main()
+{
+    welcome w;
+    bookstore b;
+    w.display_time();
+    cout << "We have a range of books for you. Here are the genres:" << endl;
+    b.genres();
+    b.ask();
+    b.bill();
 }
